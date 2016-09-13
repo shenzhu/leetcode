@@ -48,6 +48,24 @@ public class Solution {
     	else return quickSelect(nums, i + 1, hi, k - m);
     }
 
+    private int quickSelect(int[] nums, int lo, int hi, int k){
+    	// return the index of the kth smallest number
+    	// put num <= pivot to the left 
+    	// put nums > pivot to the right
+    	int i = lo, j = hi, pivot = num[k];
+    	while(i < j){
+    		if(num[i++] > pivot) swap(nums, --i, --j);
+    	}
+    	swap(nums, i, hi);
+
+    	// count the nums that are <= pivot from lo
+    	int m = i - lo + 1;
+
+    	if(m == k) return i;
+    	else if(m > k) return quickSelect(nums, lo, i - 1, k);
+    	else return quickSelect(num, i + 1, hi, k - m);
+    }
+
     private void swap(int[] nums, int i, int j){
     	int temp = nums[i];
     	nums[i] = nums[j];
