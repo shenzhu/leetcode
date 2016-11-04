@@ -1,0 +1,49 @@
+public class Solution {
+    public int calculate(String s) {
+        // Corner case
+        if(s == null || s.length() == 0){
+            return 0;
+        }
+        
+        int length = s.length();
+        int num = 0;
+        char sign = '+';
+        
+        Stack<Integer> stack = new Stack<Integer>();
+        
+        for(int i = 0; i < s.length(); i++){
+            // When current element is number
+            if(Character.isDigit(s.charAt(i))){
+                num = num * 10 + s.charAt(i) - '0';
+            }
+            
+            // When current element is operator or have reached the end of string
+            if(!(Character.isDigit(s.charAt(i))) && ' ' != s.charAt(i) || i == length - 1){
+                if(sign == '+'){
+                    stack.push(num);
+                }
+                if(sign == '-'){
+                    stack.push(num * -1);
+                }
+                if(sign == '*'){
+                    stack.push(stack.pop() * num);
+                }
+                if(sign == '/'){
+                    stack.push(stack.pop() / num);
+                }
+                
+                // Update operator and num
+                sign = s.charAt(i);
+                num = 0;
+            }
+        }
+        
+        // Add all results
+        int result = 0;
+        for(Integer element : stack){
+            result += element;
+        }
+        
+        return result;
+    }
+}
