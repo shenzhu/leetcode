@@ -1,0 +1,19 @@
+public class Solution {
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        
+        int min;
+        for(int i = 1; i <= n; i++){
+            min = Integer.MAX_VALUE;
+            int number = 1;
+            while(i - number * number >= 0){
+                min = Math.min(min, dp[i - number * number] + 1);
+                number++;
+            }
+            dp[i] = min;
+        }
+        
+        return dp[n];
+    }
+}
