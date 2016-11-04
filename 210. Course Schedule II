@@ -1,0 +1,55 @@
+public class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        // Corner case
+        if(numCourses == 0){
+            return new int[0];
+        }
+        
+        int[] incLinkCounts = new int[numCourses];
+        List<List<Integer>> adjLists = new ArrayList<>();
+        initializeGraph(incLinkCounts, adjLists, prerequisites);
+        return solveByBFS(incLinkCounts, adjLists);
+    }
+    
+    private void initializeGraph(int[] incLinkCounts, List<List<Integer>> adjLists, int[][] prerequisites){
+        int n = incLinkCounts.length;
+        
+        // Add lists to adjLists
+        for(int i = 0; i < n; i++){
+            adjLists.add(new ArrayList<Integer>());
+        }
+        
+        // Construct graph
+        for(int[] edge : prerequisites){
+            incLinkCounts[edge[0]]++;
+            adjLists.get(edge[1]).add(edge[0]);
+        }
+    }
+    
+    private int[] solveByBFS(int[] incLinkCounts, List<List<Integer>> adjLists){
+        int[] order = new int[incLinkCounts.length];
+        Deque<Integer> toVisit = new LinkedList<Integer>();
+        
+        // Add nodes to toVisit
+        for(int i = 0; i < incLinkCounts.length; i++){
+            if(incLinkCounts[i] == 0){
+                toVisit.offer(i);
+            }
+        }
+        
+        // Topological sort
+        int visited = 0;
+        while(!toVisit.isEmpty()){
+            int from = toVisit.poll();
+            order[visited++] = from;
+            for(int to : adjLists.get(from)){
+                incLinkCounts[to]--;
+                if(incLinkCounts[to] == 0){
+                    toVisit.offer(to);
+                }
+            }
+        }
+        
+        return visited == order.length ? order : new int[0];
+    }
+}
