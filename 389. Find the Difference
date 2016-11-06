@@ -1,0 +1,35 @@
+// Method One: char as int
+public class Solution {
+    public char findTheDifference(String s, String t) {
+        int charSumS = 0;
+        int charSumT = 0;
+        
+        for(int i = 0; i < s.length(); i++){
+            charSumS += (int)s.charAt(i);
+        }
+        
+        for(int i = 0; i < t.length(); i++){
+            charSumT += (int)t.charAt(i);
+        }
+        
+        return (char)(charSumT - charSumS);
+    }
+}
+
+
+// Method Two: Bit Manipulation
+public class Solution {
+    public char findTheDifference(String s, String t) {
+        char result = 0;
+        
+        for(int i = 0; i < s.length(); i++){
+            result ^= s.charAt(i);
+        }
+        
+        for(int i = 0; i < t.length(); i++){
+            result ^= t.charAt(i);
+        }
+        
+        return result;
+    }
+}
