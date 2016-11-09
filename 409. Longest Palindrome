@@ -1,0 +1,28 @@
+public class Solution {
+    public int longestPalindrome(String s) {
+        // Corner case
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        
+        int count = 0;
+        Set<Character> set = new HashSet<Character>();
+        
+        for (int i = 0; i < s.length(); i++){
+            if (set.contains(s.charAt(i))) {
+                count++;
+                set.remove(s.charAt(i));
+            } else {
+                set.add(s.charAt(i));
+            }
+        }
+        
+        if (!set.isEmpty()) {
+            count = count * 2 + 1;
+        } else {
+            count = count * 2;
+        }
+        
+        return count;
+    }
+}
