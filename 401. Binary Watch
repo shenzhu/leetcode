@@ -1,0 +1,32 @@
+public class Solution {
+    public List<String> readBinaryWatch(int num) {
+        List<String> result = new ArrayList<String>();
+        
+        // Corner case
+        if (num < 0 || num > 10) return result;
+        
+        // Iterate over all possible cases
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 60; j++) {
+                int time = i * 64 + j;
+                int count = 0;
+                while (time != 0) {
+                    if (time % 2 == 1) {
+                        count++;
+                    }
+                    time /= 2;
+                }
+                
+                if (count == num) {
+                    result.add(String.format("%d:%02d", i, j));
+                }
+                // // Integer.bitCount
+                // if (Integer.bitCount(i * 64 + j) == num) {
+                //     result.add(String.format("%d:%02d", i, j));
+                // }
+            }
+        }
+        
+        return result;
+    }
+}
