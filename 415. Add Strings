@@ -1,0 +1,38 @@
+public class Solution {
+    public String addStrings(String num1, String num2) {
+        int num1Index = num1.length() - 1;
+        int num2Index = num2.length() - 1;
+        
+        int carry = 0;
+        int a = 0;
+        int b = 0;
+        
+        char[] num1Array = num1.toCharArray();
+        char[] num2Array = num2.toCharArray();
+        
+        StringBuilder sb = new StringBuilder();
+        
+        while (num1Index >= 0 || num2Index >= 0 || carry > 0) {
+            if (num1Index >= 0) {
+                a = num1Array[num1Index] - '0';
+                num1Index--;
+            } else {
+                a = 0;
+            }
+            
+            if (num2Index >= 0) {
+                b = num2Array[num2Index] - '0';
+                num2Index--;
+            } else {
+                b = 0;
+            }
+            
+            int sum = a + b + carry;
+            
+            sb.insert(0, sum % 10);
+            carry = sum / 10;
+        }
+        
+        return sb.toString();
+    }
+}
