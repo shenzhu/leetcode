@@ -1,0 +1,36 @@
+public class Solution {
+    public int numberOfBoomerangs(int[][] points) {
+        // Corner case
+        if (points == null || points.length == 0 || points[0].length == 0) {
+            return 0;
+        }
+        
+        int result = 0;
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < points.length; i++) {
+            for (int j = 0; j < points.length; j++) {
+                if (i == j) continue;
+                int distance = getDistance(points[i], points[j]);
+                
+                if (!map.containsKey(distance)) {
+                    map.put(distance, 1);
+                } else {
+                    map.put(distance, map.get(distance) + 1);
+                }
+            }
+            
+            for (Integer val : map.values()) {
+                result += val * (val - 1);
+            }
+            map.clear();
+        }
+        
+        return result;
+    }
+    
+    private int getDistance(int[] pointOne, int[] pointTwo) {
+        int a = pointOne[0] - pointTwo[0];
+        int b = pointOne[1] - pointTwo[1];
+        return a * a + b * b;
+    }
+}
