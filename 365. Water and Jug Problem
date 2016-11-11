@@ -1,0 +1,19 @@
+public class Solution {
+    public boolean canMeasureWater(int x, int y, int z) {
+        // Corner case
+        if (z > x + y) return false;
+        if (x == z || y == z || x + y == z) return true;
+        
+        return z % GCD(x, y) == 0;
+    }
+    
+    private int GCD(int a, int b) {
+        while (b != 0) {
+            int remainder = a % b;
+            a = b;
+            b = remainder;
+        }
+        
+        return a;
+    }
+}
