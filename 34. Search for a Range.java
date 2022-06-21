@@ -1,28 +1,27 @@
-public class Solution{
-    public int[] searchRange(int[] nums, int target){
-        int i = 0;
-        int j = nums.length - 1;
-        int[] result = {-1, -1};
-
-        // Search for left range
-        while(i < j){
-            int mid = (i + j) / 2;
-            if(nums[mid] < target) i = mid + 1;
-            else j = mid;
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        
+        // initilizing variables
+        int flag=0,a=-1,b=-1;
+        int numlen=nums.length;
+        
+        //initially set first number as first and last match
+        for (int i=0;i<numlen;i++){
+            if (nums[i]==target){ 
+                if (flag==0)
+                {
+                    flag++;
+                    a=i;
+                    b=i;
+                }
+                    
+                else
+                    b=i;
+                
+            }
+                
         }
-        if(nums[i] != target) return result;
-        else result[0] = i;
-
-        // Search for right range
-        j = nums.length - 1;        // do not need to set i to i this time
-        while(i < j){
-            int mid = (i + j) / 2 + 1;      // make mid biased to the right
-            if(nums[mid] > target) j = mid - 1;
-            else i = mid;
-        }
-        if(nums[j] != target) return result;
-        else result[1] = j;
-        return result;
-
+        int[] arr={a,b}; 
+        return (arr);
     }
 }
